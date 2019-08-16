@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>YeuAI Audio Recorder</title>
+  <link rel="stylesheet" href="styles/app.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="js/audiodisplay.js"></script>
+  <script src="js/recorder.js"></script>
+  <script src="js/main.js"></script>
+</head>
+
+<body>
+
+  <div id="viz">
+    <form id="textbox" method=post action="">
+      <input id="numb" type="text" size="5" value="#">
+      <input id="text" type="text" size="100" value="Mouse-over the micro to show text, click to record">
+    </form>
+    <canvas id="analyser" width="1024" height="400"></canvas>
+    <canvas id="wavedisplay" width="1024" height="400"></canvas>
+  </div>
+
+  <div id="controls">
+    <img id="record" src="img/mic128.png" onmouseover="save();" onclick="toggleRecording(this);">
+    <a id="save" href="#"><img src="img/save.svg" onclick="send_request();" onmouseover="save();"></a>
+  </div>
+
+</body>
+
+</html>
