@@ -6,6 +6,7 @@ import { AudioService, TextService } from './api';
 async function bootstrap() {
   const app = await KitesFactory
     .create({
+      loadConfig: true,
       providers: [
         AudioService,
         TextService,
