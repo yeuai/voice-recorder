@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-sanitize.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-resource.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-sanitize.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-resource.js"></script>
   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 
   <script src="js/audiodisplay.js"></script>
@@ -38,14 +38,14 @@
       <button type="button" class="btn btn-secondary">Lưu lại</button>
       <button type="button" class="btn btn-success">Thu lại</button>
     </div>
-    <canvas id="analyser" width="1024" height="400"></canvas>
-    <canvas id="wavedisplay" width="1024" height="400"></canvas>
+    <canvas id="analyser" height="400"></canvas>
+    <canvas id="wavedisplay" height="400"></canvas>
   </div>
 
-  <div id="controls">
+  <!-- <div id="controls">
     <img id="record" src="img/mic128.png" onmouseover="save();" onclick="toggleRecording(this);">
     <a id="save" href="#"><img src="img/save.svg" onclick="send_request();" onmouseover="save();"></a>
-  </div>
+  </div> -->
 
 </body>
 

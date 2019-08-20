@@ -1,4 +1,7 @@
-angular.module('voiceRecorder', ['ui.bootstrap'])
+angular.module('voiceRecorder', [
+    'ngResource',
+    'ui.bootstrap'
+  ])
   .controller('ModalInstanceCtrl', function ($uibModalInstance, speaker) {
     var $ctrl = this;
     $ctrl.speaker = speaker;
@@ -8,7 +11,7 @@ angular.module('voiceRecorder', ['ui.bootstrap'])
       $uibModalInstance.close($ctrl.speaker);
     };
   })
-  .controller('RecordController', function ($timeout, $log, $document, $uibModal) {
+  .controller('RecordController', function ($timeout, $log, $document, $uibModal, svText) {
     var $ctrl = this;
 
     $ctrl.open = function (size, parentSelector) {
@@ -41,5 +44,9 @@ angular.module('voiceRecorder', ['ui.bootstrap'])
     };
 
     // open prompt modal
-    $timeout($ctrl.open.bind(this))
+    $timeout($ctrl.open.bind(this));
+    $timeout(async function () {
+      const vResult = await svText.all().$promise;
+      console.log('Result: ', vResult)
+    })
   });

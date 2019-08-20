@@ -14,9 +14,9 @@ export class TextController {
   }
 
   @Get('/')
-  list() {
+  async list() {
     this.kites.logger.info('Get all text ...');
-    return this.svText.getAll();
+    return await this.svText.getAll();
   }
 
   @Get('/:id')
