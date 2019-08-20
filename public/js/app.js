@@ -5,6 +5,16 @@ angular.module('voiceRecorder', [
   .controller('RecordController', function ($timeout, $log, $document, $uibModal, svText) {
     var vm = this;
 
+    document.addEventListener('keyup', e => {
+      if (e.which === 38 || e.which === 39) {
+        $timeout(vm.select.bind(vm, vm.current + 1));
+      } else if (e.which === 37 || e.which === 40) {
+        $timeout(vm.select.bind(vm, vm.current - 1));
+      } else if (e.which === 32) {
+        $timeout(vm.start);
+      }
+    });
+
     vm.open = function (size, parentSelector) {
       var parentElem = parentSelector ?
         angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
@@ -48,6 +58,10 @@ angular.module('voiceRecorder', [
       localStorage.setItem('current', vm.current);
     }
 
+    vm.start = function () {
+      console.log('Start!');
+    }
+
     // open prompt modal
     $timeout(vm.open.bind(this));
     $timeout(async function () {
@@ -56,7 +70,9 @@ angular.module('voiceRecorder', [
 
       const vCurrent = parseInt(localStorage.getItem('current') || 1);
       vm.select(vCurrent);
-    })
+    });
+
+
   })
   .controller('ModalInstanceCtrl', function ($uibModalInstance, speaker) {
     var vm = this;

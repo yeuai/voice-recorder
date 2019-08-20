@@ -166,52 +166,52 @@ function initAudio() {
       },
     }, gotStream, function (e) {
       alert('Error getting audio');
-      console.log(e);
+      console.log('Error getting audio:', e);
     });
 }
 
-function send_request() {
-  var numb = $("#numb").val();
-  var fun = $.ajax({
-    type: "POST",
-    url: "http://0.0.0.0:5555/record",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    data: JSON.stringify({ 'numb': numb, }),
-    success: function (data) {
-      response = $.parseJSON(JSON.stringify(data));
-      var text = response.text;
-      var numb = response.numb;
-      $("#numb").val(numb);
-      $("#text").val(text);
-    },
-  });
-}
+// function send_request() {
+//   var numb = $("#numb").val();
+//   var fun = $.ajax({
+//     type: "POST",
+//     url: "http://0.0.0.0:5555/record",
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "json",
+//     data: JSON.stringify({ 'numb': numb, }),
+//     success: function (data) {
+//       response = $.parseJSON(JSON.stringify(data));
+//       var text = response.text;
+//       var numb = response.numb;
+//       $("#numb").val(numb);
+//       $("#text").val(text);
+//     },
+//   });
+// }
 
-function save() {
-  var numb = $("#numb").val();
-  var fun = $.ajax({
-    type: "POST",
-    url: "http://0.0.0.0:5555/record",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    data: JSON.stringify({ 'numb': numb, }),
-    //        success: function(data) {},
-  });
-  var fun = $.ajax({
-    type: "POST",
-    url: "http://0.0.0.0:5555/record",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    data: JSON.stringify({ 'numb': numb, }),
-    success: function (data) {
-      response = $.parseJSON(JSON.stringify(data));
-      var text = response.text;
-      var numb = response.numb;
-      $("#numb").val(numb);
-      $("#text").val(text);
-    },
-  });
-}
+// function save() {
+//   var numb = $("#numb").val();
+//   var fun = $.ajax({
+//     type: "POST",
+//     url: "http://0.0.0.0:5555/record",
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "json",
+//     data: JSON.stringify({ 'numb': numb, }),
+//     //        success: function(data) {},
+//   });
+//   var fun = $.ajax({
+//     type: "POST",
+//     url: "http://0.0.0.0:5555/record",
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "json",
+//     data: JSON.stringify({ 'numb': numb, }),
+//     success: function (data) {
+//       response = $.parseJSON(JSON.stringify(data));
+//       var text = response.text;
+//       var numb = response.numb;
+//       $("#numb").val(numb);
+//       $("#text").val(text);
+//     },
+//   });
+// }
 
 window.addEventListener('load', initAudio);

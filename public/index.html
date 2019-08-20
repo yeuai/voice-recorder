@@ -27,16 +27,16 @@
 
   <div id="viz">
     <form id="textbox">
-      <input id="numb" type="number" size="20" ng-model="vm.current" my-enter="vm.select()">
+      <input id="numb" type="number" size="20" ng-model="vm.current" my-enter="vm.select()" placeholder="#">
       <input id="text" type="text" size="100" ng-model="vm.text" placeholder="Nhập số thứ tự câu hoặc chọn Next">
     </form>
     <p>
       Tên người thu: {{vm.speaker}}
     </p>
     <div>
-      <button type="button" class="btn btn-primary" ng-click="vm.open()">Bắt đầu/dừng</button>
-      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current + 1)">Next</button>
-      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current - 1)">Previous</button>
+      <button type="button" class="btn btn-primary" ng-click="vm.open()">Bắt đầu/dừng (space)</button>
+      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current + 1)">Next (right arrow)</button>
+      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current - 1)">Previous (left arrow)</button>
       <button type="button" class="btn btn-success">Lưu lại</button>
       <button type="button" class="btn btn-danger">Thu lại</button>
     </div>
