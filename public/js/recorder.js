@@ -84,7 +84,8 @@
     }
 
     source.connect(this.node);
-    this.node.connect(this.context.destination);   // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
+    this.node.connect(this.context.destination);
+    // if the script node is not connected to an output the "onaudioprocess" event is not triggered in chrome.
   };
 
   Recorder.setupDownload = function (blob, filename) {

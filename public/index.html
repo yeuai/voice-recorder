@@ -4,20 +4,40 @@
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>YeuAI Audio Recorder</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="styles/app.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-sanitize.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-resource.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
   <script src="js/audiodisplay.js"></script>
   <script src="js/recorder.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
 </head>
 
-<body>
+<body ng-app="voiceRecorder" ng-controller="RecordController as vm">
 
   <div id="viz">
     <form id="textbox" method=post action="">
       <input id="numb" type="text" size="5" value="#">
       <input id="text" type="text" size="100" value="Mouse-over the micro to show text, click to record">
     </form>
+    <p>
+      Tên người thu: {{vm.speaker}}
+    </p>
+    <div>
+      <button type="button" class="btn btn-primary" ng-click="vm.open()">Bắt đầu/dừng</button>
+      <button type="button" class="btn btn-secondary">Lưu lại</button>
+      <button type="button" class="btn btn-success">Thu lại</button>
+    </div>
     <canvas id="analyser" width="1024" height="400"></canvas>
     <canvas id="wavedisplay" width="1024" height="400"></canvas>
   </div>
@@ -30,3 +50,18 @@
 </body>
 
 </html>
+
+<script type="text/ng-template" id="myModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Nhập tên của bạn?</h3>
+  </div>
+  <div class="modal-body" id="modal-body">
+    <div class="form-group">
+        <label for="speakerName">Speaker:</label>
+        <input type="text" id="speakerName" class="form-control" ng-model="$ctrl.speaker" placeholder="Nhập tên không dấu của bạn, ví dụ: vunb">
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()" ng-disabled="!$ctrl.speaker">OK</button>
+  </div>
+</script>
