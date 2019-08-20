@@ -10,6 +10,7 @@ app.factory('svText', function ($resource) {
     all: {
       method: 'GET',
       url: prefix + '/text',
+      isArray: true,
     },
     info: {
       method: 'GET',

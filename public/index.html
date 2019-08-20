@@ -26,17 +26,19 @@
 <body ng-app="voiceRecorder" ng-controller="RecordController as vm">
 
   <div id="viz">
-    <form id="textbox" method=post action="">
-      <input id="numb" type="text" size="5" value="#">
-      <input id="text" type="text" size="100" value="Mouse-over the micro to show text, click to record">
+    <form id="textbox">
+      <input id="numb" type="number" size="20" ng-model="vm.current" my-enter="vm.select()">
+      <input id="text" type="text" size="100" ng-model="vm.text" placeholder="Nhập số thứ tự câu hoặc chọn Next">
     </form>
     <p>
       Tên người thu: {{vm.speaker}}
     </p>
     <div>
       <button type="button" class="btn btn-primary" ng-click="vm.open()">Bắt đầu/dừng</button>
-      <button type="button" class="btn btn-secondary">Lưu lại</button>
-      <button type="button" class="btn btn-success">Thu lại</button>
+      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current + 1)">Next</button>
+      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current - 1)">Previous</button>
+      <button type="button" class="btn btn-success">Lưu lại</button>
+      <button type="button" class="btn btn-danger">Thu lại</button>
     </div>
     <canvas id="analyser" height="400"></canvas>
     <canvas id="wavedisplay" height="400"></canvas>

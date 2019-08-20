@@ -2,19 +2,10 @@ angular.module('voiceRecorder', [
     'ngResource',
     'ui.bootstrap'
   ])
-  .controller('ModalInstanceCtrl', function ($uibModalInstance, speaker) {
-    var $ctrl = this;
-    $ctrl.speaker = speaker;
-
-    $ctrl.ok = function () {
-      localStorage.setItem('speaker', $ctrl.speaker);
-      $uibModalInstance.close($ctrl.speaker);
-    };
-  })
   .controller('RecordController', function ($timeout, $log, $document, $uibModal, svText) {
-    var $ctrl = this;
+    var vm = this;
 
-    $ctrl.open = function (size, parentSelector) {
+    vm.open = function (size, parentSelector) {
       var parentElem = parentSelector ?
         angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
       var modalInstance = $uibModal.open({
@@ -36,17 +27,57 @@ angular.module('voiceRecorder', [
       });
 
       modalInstance.result.then(function (speaker) {
-        $ctrl.speaker = speaker;
+        vm.speaker = speaker;
         console.log('Speaker: ', speaker)
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
 
+    vm.select = function (index) {
+      if (typeof index === 'number') {
+        vm.current = index;
+      }
+
+      const item = vm.data.find(x => x.number == vm.current);
+      if (!item) {
+        return alert('Không có số thứ tự này! ' + vm.current);
+      }
+      vm.text = item.text;
+      vm.current = parseInt(item.number);
+      localStorage.setItem('current', vm.current);
+    }
+
     // open prompt modal
-    $timeout($ctrl.open.bind(this));
+    $timeout(vm.open.bind(this));
     $timeout(async function () {
       const vResult = await svText.all().$promise;
-      console.log('Result: ', vResult)
+      vm.data = vResult;
+
+      const vCurrent = parseInt(localStorage.getItem('current') || 1);
+      vm.select(vCurrent);
     })
-  });
+  })
+  .controller('ModalInstanceCtrl', function ($uibModalInstance, speaker) {
+    var vm = this;
+    vm.speaker = speaker;
+    vm.data = [];
+
+    vm.ok = function () {
+      localStorage.setItem('speaker', vm.speaker);
+      $uibModalInstance.close(vm.speaker);
+    };
+  })
+  .directive('myEnter', function () {
+    return function (scope, element, attrs) {
+      element.bind("keydown keypress", function (event) {
+        if (event.which === 13) {
+          scope.$apply(function () {
+            scope.$eval(attrs.myEnter);
+          });
+
+          event.preventDefault();
+        }
+      });
+    };
+  })
