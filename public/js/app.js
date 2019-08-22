@@ -1,11 +1,16 @@
 angular.module('voiceRecorder', [
+  'ngAnimate',
   'ngResource',
+  'toastr',
   'ui.bootstrap'
 ])
-  .controller('RecordController', function ($http, $timeout, $log, $document, $uibModal, svText) {
+  .controller('RecordController', function ($http, $timeout, $log, $document, $uibModal, toastr, svText) {
     var vm = this;
 
-    vm.isRecording = false;
+    vm.isRecording = undefined;
+    vm.isRecordingOrNotStarted = function () {
+      return (typeof vm.isRecording === 'undefined' || vm.isRecording);
+    }
 
     document.addEventListener('keyup', e => {
       if (e.which === 38 || e.which === 39) {
@@ -18,6 +23,9 @@ angular.module('voiceRecorder', [
     });
 
     vm.saveAudio = function () {
+      if (vm.isRecording) {
+        return;
+      }
       // audioRecorder.exportWAV( doneEncoding );
       // could get mono instead by saying
       audioRecorder.exportMonoWAV((blob) => {
@@ -29,14 +37,13 @@ angular.module('voiceRecorder', [
         $http.post('/upload/' + vm.speaker, fd, {
           transformRequest: angular.identity,
           headers: { 'Content-Type': undefined },
-          responseType: 'arraybuffer'
+          responseType: 'json'
         })
-          .success(function (res) {
-            alert(res);
-          })
-          .error(function (err) {
+          .then(function ({ data }) {
+            toastr.success('File: ' + data.filename, 'Lưu thành công!');
+          }, function (err) {
             console.error(err);
-            alert('Lỗi: ' + err)
+            alert('Lỗi: ' + err);
           });
 
       });
@@ -51,12 +58,6 @@ angular.module('voiceRecorder', [
       // so here's where we should set up the download.
       // audioRecorder.exportMonoWAV(doneEncoding);
     }
-
-    // function doneEncoding(blob) {
-    //   Recorder.setupDownload(blob, "record" + ((recIndex < 100000) ? "" : "") + ".wav");
-    //   recIndex++;
-    // }
-
 
     vm.open = function (size, parentSelector) {
       var parentElem = parentSelector ?

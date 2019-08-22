@@ -8,12 +8,14 @@
   <link rel="stylesheet" href="styles/app.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/angular-toastr@2/dist/angular-toastr.min.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-sanitize.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-resource.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/angular-toastr@2/dist/angular-toastr.tpls.min.js"></script>
   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 
   <script src="js/audiodisplay.js"></script>
@@ -26,10 +28,6 @@
 <body ng-app="voiceRecorder" ng-controller="RecordController as vm">
 
   <div class="container">
-    <!-- <form id="textbox">
-      <input id="numb" type="number" size="20" ng-model="vm.current" my-enter="vm.select()" placeholder="#">
-      <input id="text" type="text" size="100" ng-model="vm.text" placeholder="Nhập số thứ tự câu hoặc chọn Next">
-    </form> -->
     <p>
       <label for="basic-url">Đọc rõ, to câu này:</label>
       <div class="input-group">
@@ -47,17 +45,14 @@
       <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current + 1)">Next (right arrow)</button>
       <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current - 1)">Previous (left
         arrow)</button>
-      <button type="button" class="btn btn-success" ng-click="vm.saveAudio()">Lưu lại</button>
+      <button type="button" class="btn btn-success" ng-click="vm.saveAudio()"
+        ng-disabled="vm.isRecordingOrNotStarted()">Lưu
+        lại</button>
       <button type="button" class="btn btn-danger">Nghe lại</button>
     </p>
     <canvas id="analyser" height="400"></canvas>
     <canvas id="wavedisplay" height="400"></canvas>
   </div>
-
-  <!-- <div id="controls">
-    <img id="record" src="img/mic128.png" onmouseover="save();" onclick="toggleRecording(this);">
-    <a id="save" href="#"><img src="img/save.svg" onclick="send_request();" onmouseover="save();"></a>
-  </div> -->
 
 </body>
 

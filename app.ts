@@ -38,8 +38,7 @@ async function bootstrap() {
       kites.express.app.post('/upload/:speaker', upload.single('audio_file'), (req, res, next) => {
         const speaker = req.param('speaker');
         const filename = req.file.filename;
-        const originalname = req.file.originalname;
-        res.ok({ speaker, filename, originalname });
+        res.ok({ speaker, filename });
       });
 
       kites.express.app.use((err, req, res, next) => {
