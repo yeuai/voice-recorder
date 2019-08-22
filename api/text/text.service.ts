@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@kites/common';
 import { KITES_INSTANCE, KitesInstance } from '@kites/core';
 
-import { createReadStream } from 'fs';
+import { createReadStream, existsSync } from 'fs';
 import { createInterface } from 'readline';
 import { once } from '../utils/events.util';
 
@@ -9,10 +9,18 @@ import { once } from '../utils/events.util';
 export class TextService {
 
   constructor(
-   @Inject(KITES_INSTANCE) private kites: KitesInstance,
+    @Inject(KITES_INSTANCE) private kites: KitesInstance,
   ) { }
 
+  /**
+   * Đọc toàn bộ file `text` có kích thước lớn theo từng dòng
+   * @param filename
+   */
   async readAllDataLines(filename: string) {
+    if (!existsSync(filename)) {
+      throw new Error('File Not Found: ' + filename);
+    }
+
     const fileStream = createReadStream(filename);
     const result = [];
 
@@ -38,12 +46,11 @@ export class TextService {
     return result;
   }
 
-  async getAll(): Promise<Array<{number: number, text: string}>> {
+  getAll(): Promise<Array<{ number: number, text: string }>> {
     const dataFilename = this.kites.appDirectory + '/data/text.txt';
     this.kites.logger.info('Read data from: ' + dataFilename);
 
-    const result = await this.readAllDataLines(dataFilename);
-    return result;
+    return this.readAllDataLines(dataFilename);
   }
 
   public create(task: any) {

@@ -1,7 +1,7 @@
 angular.module('voiceRecorder', [
-    'ngResource',
-    'ui.bootstrap'
-  ])
+  'ngResource',
+  'ui.bootstrap'
+])
   .controller('RecordController', function ($timeout, $log, $document, $uibModal, svText) {
     var vm = this;
 
@@ -38,20 +38,19 @@ angular.module('voiceRecorder', [
 
       modalInstance.result.then(function (speaker) {
         vm.speaker = speaker;
-        console.log('Speaker: ', speaker)
+        console.log('Speaker: ', speaker);
+        // init micro here!
+        initAudio();
+
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
 
     vm.select = function (index) {
-      if (typeof index === 'number') {
-        vm.current = index;
-      }
-
-      const item = vm.data.find(x => x.number == vm.current);
+      const item = vm.data.find(x => x.number == index);
       if (!item) {
-        return alert('Không có số thứ tự này! ' + vm.current);
+        return alert('Không có số thứ tự này! ' + index);
       }
       vm.text = item.text;
       vm.current = parseInt(item.number);
