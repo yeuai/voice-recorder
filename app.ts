@@ -3,6 +3,7 @@ import Express from '@kites/express';
 import Rest from '@kites/rest';
 import { AudioService, TextService } from './api';
 
+import { static as st } from 'express';
 import * as multer from 'multer';
 import * as mkdirp from 'mkdirp';
 
@@ -40,6 +41,9 @@ async function bootstrap() {
         const filename = req.file.filename;
         res.ok({ speaker, filename });
       });
+
+      // extra static folder
+      kites.express.app.use(st(kites.appDirectory + '/data'));
 
       kites.express.app.use((err, req, res, next) => {
         console.error('Error: ', err);

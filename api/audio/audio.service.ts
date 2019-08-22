@@ -12,8 +12,8 @@ export class AudioService {
     return { _id: Date.now(), ...task };
   }
 
-  public get(task: string) {
-    return `Get details: ${task}`;
+  public get(speaker: string, id: string) {
+    return `Get details: ${id}`;
   }
 
   public begin(task: string) {

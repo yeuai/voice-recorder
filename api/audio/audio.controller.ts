@@ -19,9 +19,9 @@ export class AudioController {
     return this.svAudio.getAll();
   }
 
-  @Get('/:id')
-  details(@RequestParam('id') task) {
-    return this.svAudio.get(task);
+  @Get('/:speaker/:id')
+  details(@RequestParam('speaker') speaker, @RequestParam('id') id) {
+    return this.svAudio.get(speaker, id);
   }
 
   @Post('/')

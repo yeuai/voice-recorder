@@ -49,6 +49,17 @@ angular.module('voiceRecorder', [
       });
     }
 
+    vm.play = function () {
+      const fileName = '/' + vm.speaker + '/' + vm.current + '.wav';
+      const audio = new Audio(fileName);
+      audio.play().then(() => {
+        toastr.success('File: ' + fileName, 'Đang phát ...');
+      }).catch((err) => {
+        toastr.error('File chưa được ghi âm hoặc chưa lưu: ' + fileName, 'Không thể phát!');
+        console.error('ERROR:', err && err.message);
+      });
+    }
+
     function gotBuffers(buffers) {
       var canvas = document.getElementById("wavedisplay");
 

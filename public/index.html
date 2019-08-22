@@ -48,7 +48,7 @@
       <button type="button" class="btn btn-success" ng-click="vm.saveAudio()"
         ng-disabled="vm.isRecordingOrNotStarted()">Lưu
         lại</button>
-      <button type="button" class="btn btn-danger">Nghe lại</button>
+      <button type="button" class="btn btn-danger" ng-click="vm.play()">Nghe lại</button>
     </p>
     <canvas id="analyser" height="400"></canvas>
     <canvas id="wavedisplay" height="400"></canvas>
