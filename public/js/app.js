@@ -2,8 +2,10 @@ angular.module('voiceRecorder', [
   'ngResource',
   'ui.bootstrap'
 ])
-  .controller('RecordController', function ($timeout, $log, $document, $uibModal, svText) {
+  .controller('RecordController', function ($http, $timeout, $log, $document, $uibModal, svText) {
     var vm = this;
+
+    vm.isRecording = false;
 
     document.addEventListener('keyup', e => {
       if (e.which === 38 || e.which === 39) {
@@ -11,9 +13,50 @@ angular.module('voiceRecorder', [
       } else if (e.which === 37 || e.which === 40) {
         $timeout(vm.select.bind(vm, vm.current - 1));
       } else if (e.which === 32) {
-        $timeout(vm.start);
+        $timeout(vm.toggleRecording.bind(vm));
       }
     });
+
+    vm.saveAudio = function () {
+      // audioRecorder.exportWAV( doneEncoding );
+      // could get mono instead by saying
+      audioRecorder.exportMonoWAV((blob) => {
+        var fd = new FormData();
+        var file = new File([blob], vm.current + '.wav');
+        fd.append('audio_file', file);
+        fd.append('speaker', vm.speaker);
+
+        $http.post('/upload/' + vm.speaker, fd, {
+          transformRequest: angular.identity,
+          headers: { 'Content-Type': undefined },
+          responseType: 'arraybuffer'
+        })
+          .success(function (res) {
+            alert(res);
+          })
+          .error(function (err) {
+            console.error(err);
+            alert('Lỗi: ' + err)
+          });
+
+      });
+    }
+
+    function gotBuffers(buffers) {
+      var canvas = document.getElementById("wavedisplay");
+
+      drawBuffer(canvas.width, canvas.height, canvas.getContext('2d'), buffers[0]);
+
+      // the ONLY time gotBuffers is called is right after a new recording is completed -
+      // so here's where we should set up the download.
+      // audioRecorder.exportMonoWAV(doneEncoding);
+    }
+
+    // function doneEncoding(blob) {
+    //   Recorder.setupDownload(blob, "record" + ((recIndex < 100000) ? "" : "") + ".wav");
+    //   recIndex++;
+    // }
+
 
     vm.open = function (size, parentSelector) {
       var parentElem = parentSelector ?
@@ -57,8 +100,22 @@ angular.module('voiceRecorder', [
       localStorage.setItem('current', vm.current);
     }
 
-    vm.start = function () {
-      console.log('Start!');
+    vm.toggleRecording = function () {
+      if (vm.isRecording) {
+        vm.isRecording = false;
+
+        // stop recording
+        audioRecorder.stop();
+        audioRecorder.getBuffers(gotBuffers);
+      } else {
+        if (!audioRecorder)
+          return alert('Không thể start: Recorder!');
+
+        // start recording
+        vm.isRecording = true;
+        audioRecorder.clear();
+        audioRecorder.record();
+      }
     }
 
     // open prompt modal

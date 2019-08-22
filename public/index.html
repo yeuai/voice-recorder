@@ -25,21 +25,31 @@
 
 <body ng-app="voiceRecorder" ng-controller="RecordController as vm">
 
-  <div id="viz">
-    <form id="textbox">
+  <div class="container">
+    <!-- <form id="textbox">
       <input id="numb" type="number" size="20" ng-model="vm.current" my-enter="vm.select()" placeholder="#">
       <input id="text" type="text" size="100" ng-model="vm.text" placeholder="Nhập số thứ tự câu hoặc chọn Next">
-    </form>
+    </form> -->
     <p>
-      Tên người thu: {{vm.speaker}}
+      <label for="basic-url">Đọc rõ, to câu này:</label>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Speaker: {{vm.speaker}}</span>
+        <input type="number" class="form-control" id="numb" size="30" ng-model="vm.current"
+          my-enter="vm.select(vm.current)" placeholder="#">
+        <input type="text" class="form-control" id="text" aria-describedby="basic-addon3" ng-model="vm.text"
+          placeholder="Nhập số thứ tự câu hoặc chọn Next">
+      </div>
     </p>
-    <div>
-      <button type="button" class="btn btn-primary" ng-click="vm.open()">Bắt đầu/dừng (space)</button>
+    <p>
+      <button type="button" class="btn" ng-class="{'btn-primary': !vm.isRecording, 'btn-danger': vm.isRecording}"
+        ng-click="vm.toggleRecording()">{{vm.isRecording ? 'Stop' : 'Start'}}
+        (space)</button>
       <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current + 1)">Next (right arrow)</button>
-      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current - 1)">Previous (left arrow)</button>
-      <button type="button" class="btn btn-success">Lưu lại</button>
-      <button type="button" class="btn btn-danger">Thu lại</button>
-    </div>
+      <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current - 1)">Previous (left
+        arrow)</button>
+      <button type="button" class="btn btn-success" ng-click="vm.saveAudio()">Lưu lại</button>
+      <button type="button" class="btn btn-danger">Nghe lại</button>
+    </p>
     <canvas id="analyser" height="400"></canvas>
     <canvas id="wavedisplay" height="400"></canvas>
   </div>

@@ -104,15 +104,6 @@ canvas {
   opacity: 1;
 }
 
-#viz {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
 @media (orientation: landscape) {
   body {
     flex-direction: row;
@@ -122,10 +113,5 @@ canvas {
     flex-direction: column;
     height: 100%;
     width: 10%;
-  }
-
-  #viz {
-    height: 100%;
-    /* width: 90%; */
   }
 }
