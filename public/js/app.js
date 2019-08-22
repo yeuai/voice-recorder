@@ -17,7 +17,7 @@ angular.module('voiceRecorder', [
         $timeout(vm.select.bind(vm, vm.current + 1));
       } else if (e.which === 37 || e.which === 40) {
         $timeout(vm.select.bind(vm, vm.current - 1));
-      } else if (e.which === 32) {
+      } else if (e.key === 's') {
         $timeout(vm.toggleRecording.bind(vm));
       }
     });

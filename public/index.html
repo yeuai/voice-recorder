@@ -35,13 +35,13 @@
         <input type="number" class="form-control" id="numb" size="30" ng-model="vm.current"
           my-enter="vm.select(vm.current)" placeholder="#">
         <input type="text" class="form-control" id="text" aria-describedby="basic-addon3" ng-model="vm.text"
-          placeholder="Nhập số thứ tự câu hoặc chọn Next">
+          placeholder="Nhập số thứ tự câu hoặc chọn Next" readonly>
       </div>
     </p>
     <p>
       <button type="button" class="btn" ng-class="{'btn-primary': !vm.isRecording, 'btn-danger': vm.isRecording}"
         ng-click="vm.toggleRecording()">{{vm.isRecording ? 'Stop' : 'Start'}}
-        (space)</button>
+        (shortkey: s)</button>
       <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current + 1)">Next (right arrow)</button>
       <button type="button" class="btn btn-secondary" ng-click="vm.select(vm.current - 1)">Previous (left
         arrow)</button>
